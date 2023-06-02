@@ -1,10 +1,13 @@
-import 'package:firebase/screens/signupview.dart';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'addproduct.dart';
-import 'homeview.dart';
+import 'allproducts.dart';
+import 'signupview.dart';
+
+
 // class LoginView extends StatelessWidget {
 //   LoginView({super.key});
 //   TextEditingController email_control = TextEditingController();
@@ -81,9 +84,9 @@ class LoginView extends StatelessWidget {
       final credential = await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: email_control.text,
           password: pass_control.text);
-      Navigator.of(context).push(
+      Navigator.of(context).pushReplacement(
         MaterialPageRoute(
-          builder: (context) => const HomeView(),
+          builder: (context) =>  AllProductsView(),
         ),
       );
     } on FirebaseAuthException catch (e) {
@@ -96,9 +99,7 @@ class LoginView extends StatelessWidget {
   }
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor:  Color.fromARGB(255, 69, 121, 71),
-      ),
+      
         body: Scaffold(
       backgroundColor: Colors.transparent,
       body: Stack(
@@ -166,16 +167,9 @@ class LoginView extends StatelessWidget {
                         radius: 30,
                         backgroundColor: Color.fromARGB(255, 69, 121, 71),
                         child: IconButton(
-                          
-                          onPressed: () => {
-                             login(context),
-                            Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) =>
-                                            AddProductView()),)
-
-                          },
+                            onPressed: () {
+                login(context);
+              },     
                           icon: Icon(Icons.arrow_forward),
                           color: Colors.white,
                         ),
@@ -190,9 +184,19 @@ class LoginView extends StatelessWidget {
                     children: [
                       TextButton(
                          
-                      onPressed: (){},
+                      
+                         onPressed: () => {
+                         
+                          Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            SignUPView()),)
+
+                          },
+
                           child: Text(
-                            "sign up",
+                            "Sign Up",
                             style: TextStyle(
                               decoration: TextDecoration.underline,
                               fontSize: 17,

@@ -1,5 +1,7 @@
 
 import 'package:firebase/screens/addproduct.dart';
+import 'package:firebase/screens/allproducts.dart';
+import 'package:firebase/screens/loginview.dart';
 import 'package:firebase/screens/signupview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
@@ -19,7 +21,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home:SignUPView(),
+      home:AllProductsView(),
     );
+    
   }
 }

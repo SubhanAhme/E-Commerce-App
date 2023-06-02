@@ -32,9 +32,7 @@ class SignUPView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor:  Color.fromARGB(255, 69, 121, 71),
-      ),
+     
         body: Scaffold(
       body: Stack(
         children: [
