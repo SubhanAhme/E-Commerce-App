@@ -6,20 +6,26 @@ import 'allproducts.dart';
 
 class AddProductView extends StatelessWidget {
   AddProductView({super.key});
+
   TextEditingController productName = TextEditingController();
   TextEditingController productPrice = TextEditingController();
   TextEditingController productUrl = TextEditingController();
-  
 
+  void clearText() {
+    productName.clear();
+    productPrice.clear();
+    productUrl.clear();
+  }
 
   addProduct() {
     CollectionReference products =
         FirebaseFirestore.instance.collection("products");
     products
-        .add({"name": productName.text,
-         "price": productPrice.text,
-         "url":productUrl.text})
-
+        .add({
+          "name": productName.text,
+          "price": productPrice.text,
+          "url": productUrl.text
+        })
         .then((value) => print("Product Addes"))
         .catchError((e) => print(e));
   }
@@ -53,11 +59,10 @@ class AddProductView extends StatelessWidget {
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10))),
             ),
-
             SizedBox(
               height: 20,
             ),
-             TextField(
+            TextField(
               controller: productUrl,
               decoration: InputDecoration(
                   fillColor: Colors.white30,
@@ -66,14 +71,13 @@ class AddProductView extends StatelessWidget {
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(10))),
             ),
-            
             SizedBox(
               height: 20,
             ),
             ElevatedButton(
               onPressed: () {
                 addProduct();
-               
+                clearText();
               },
               child: const Text("Add Product"),
             ),

@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'addproduct.dart';
+import 'detailView.dart';
 
 class AllProductsView extends StatelessWidget {
   AllProductsView({super.key});
@@ -16,61 +17,87 @@ class AllProductsView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(),
+      
       body: Container(
-        child: FutureBuilder(
-            future: getAllProducts(),
-            builder: (BuildContext context, AsyncSnapshot snapshot) {
-              if (snapshot.hasData) {
-                // return ListView.builder(
-                //     itemCount: snapshot.data.docs.length,
-                //     itemBuilder: (context, index) {
-                //       return ListTile(
-                //         title: Text(snapshot.data.docs[index]['name']),
-                //         subtitle: Row(
-                //           children: [
-                //             Text(snapshot.data.docs[index]['price']),
-                //             Text("Rs")
-                //           ],
-                //         ),
-                //       );
-                //     });
-                return GridView.builder(
-                  itemBuilder: (context, index) {
-                    return Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(20),
-                        color: Colors.blue[100]
-                        
-                      ),
-                     
-                        child: Column(
-                          children: [
-                           Container(
-                            child:  Image.network(snapshot.data.docs[index]['url']),
-                           ),
-          
-                            // Text(snapshot.data.docs[index]['name'], style: TextStyle(fontWeight: FontWeight.bold,color: Colors.grey[700]),),
-                            // SizedBox(height: 5,width: 40,),
-                            // Text(snapshot.data.docs[index]['price'], style: TextStyle(fontSize: 10,color: Colors.grey),),
-                          
-                          ],
-                        ),
-                      
-                    );
-                  },
-                  itemCount: snapshot.data.docs.length,
-                  gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
-                    maxCrossAxisExtent: 150,
-                    crossAxisSpacing: 30,
-                    mainAxisSpacing: 30,
+      
+        
+        child: Column(
+          children: [
+            Container(
+              child: Center(
+                child: SizedBox(
+                  height: 80,
+                  width: 350,
+                  child: TextField(
+                    decoration: InputDecoration(
+                      border:InputBorder.none,
+                      filled: true,
+                      fillColor: Colors.grey[250],
+                      labelText: "Search Here"
+                    ),
                   ),
-                );
-              } else {
-                return CircularProgressIndicator();
-              }
-            }),
+                ),
+              ),
+            ),
+            Container(
+              child: FutureBuilder(
+                  future: getAllProducts(),
+                  builder: (BuildContext context, AsyncSnapshot snapshot) {
+                    if (snapshot.hasData) {
+                    
+                      return GridView.builder(
+                        itemBuilder: (context, index) {
+                          return Container(
+                             height: MediaQuery.of(context).size.height*1,
+                              width: MediaQuery.of(context).size.height*1,
+                               
+                                 decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                                 ),
+                         
+                              child: GestureDetector(
+                                 onTap: () {
+                                  Navigator.push(context, MaterialPageRoute(builder: (context) =>DetailView(data:snapshot.data.doc,) ));
+                                },
+                                child: Column(
+                                  
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                      Image.network(snapshot.data.docs[index]['url']),
+                                      SizedBox(height: 5,),
+                                        
+                                    Text(snapshot.data.docs[index]['name'], style: TextStyle(fontWeight: FontWeight.bold,color: Colors.grey[700]),),
+                                    SizedBox(height: 5,width: 40,),
+                                    Text(snapshot.data.docs[index]['price'], style: TextStyle(fontSize: 10,color: Colors.grey),),
+                                  
+                                  ],
+                                ),
+                              ),
+                            
+                          );
+                        },
+                        itemCount: snapshot.data.docs.length,
+                        gridDelegate: SliverGridDelegateWithMaxCrossAxisExtent(
+                          maxCrossAxisExtent: 300,
+                          crossAxisSpacing: 30,
+                          mainAxisSpacing: 30,
+                        ),
+                      );
+                    } else {
+                      return CircularProgressIndicator();
+                    }
+                  }),
+            ),
+          ],
+        ),
       ),
+      floatingActionButton: FloatingActionButton(  onPressed: () => {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(builder: (context) => AddProductView()),
+                )
+              },
+      child: Icon(Icons.add),),
     );
   }
 }
