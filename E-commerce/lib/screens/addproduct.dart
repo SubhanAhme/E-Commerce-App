@@ -26,7 +26,7 @@ class AddProductView extends StatelessWidget {
           "price": productPrice.text,
           "url": productUrl.text
         })
-        .then((value) => print("Product Addes"))
+        .then((value) => print("Product Adder"))
         .catchError((e) => print(e));
   }
 

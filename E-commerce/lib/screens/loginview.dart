@@ -123,6 +123,7 @@ class LoginView extends StatelessWidget {
                       controller: email_control,
                    
                     decoration: InputDecoration(
+                       prefixIcon: Icon(Icons.email,color: Colors.grey[600],),
                         fillColor: Colors.white30,
                         filled: true,
                         hintText: "Email",
@@ -136,6 +137,7 @@ class LoginView extends StatelessWidget {
                       controller: pass_control,
                     obscureText: true,
                     decoration: InputDecoration(
+                      prefixIcon: Icon(Icons.lock_outline_rounded,color: Colors.grey[600],),
                         fillColor: Colors.white30,
                         filled: true,
                         hintText: "Password",
@@ -167,9 +169,15 @@ class LoginView extends StatelessWidget {
                         radius: 30,
                         backgroundColor: Color.fromARGB(255, 69, 121, 71),
                         child: IconButton(
-                            onPressed: () {
-                login(context);
-              },     
+                            onPressed: () => {
+                         login(context),
+                          Navigator.pushReplacement(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            AllProductsView()),)
+
+                          },
                           icon: Icon(Icons.arrow_forward),
                           color: Colors.white,
                         ),

@@ -20,9 +20,9 @@ class SignUPView extends StatelessWidget {
       print("User Addes Successfully");
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
-        print('The password provided is too weak.');
+        return('The password provided is too weak.');
       } else if (e.code == 'email-already-in-use') {
-        print('The account already exists for that email.');
+        return('The account already exists for that email.');
       }
     } catch (e) {
       print(e);
@@ -68,6 +68,7 @@ class SignUPView extends StatelessWidget {
                     controller: semail_control,
                    
                     decoration: InputDecoration(
+                       prefixIcon: Icon(Icons.email,color: Colors.grey[600],),
                         fillColor: Colors.white30,
                         filled: true,
                         hintText: "Email",
@@ -81,6 +82,7 @@ class SignUPView extends StatelessWidget {
                     controller: spass_control,
                     obscureText: true,
                     decoration: InputDecoration(
+                       prefixIcon: Icon(Icons.lock_outline_rounded,color: Colors.grey[600],),
                         fillColor: Colors.white30,
                         filled: true,
                         hintText: "Password",
